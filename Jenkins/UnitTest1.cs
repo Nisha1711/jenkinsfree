@@ -21,7 +21,7 @@ namespace Jenkins
             Driver.Navigate().GoToUrl("http://executeautomation.com/demosite/Login.html");
             Driver.FindElement(By.Name("UserName")).SendKeys("admin");
             Driver.FindElement(By.Name("Password")).SendKeys("admin");
-            Driver.FindElement(By.Name("Login")).Click();
+            Driver.FindElement(By.XPath("/html/body/form/p[3]/input")).Click();
         }
 
 

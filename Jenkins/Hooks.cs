@@ -19,7 +19,7 @@ namespace Jenkins
         }
             private BrowerType _browserType;
 
-            [OneTimeSetUp]
+            [SetUp]
             public void InitializeTest()
             {
                 //Get the value from NUnit-console --params 

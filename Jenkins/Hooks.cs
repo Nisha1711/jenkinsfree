@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
@@ -17,9 +18,10 @@ namespace Jenkins
             Firefox,
             IE
         }
+       
             private BrowerType _browserType;
 
-            [SetUp]
+            [OneTimeSetUp]
             public void InitializeTest()
             {
                 //Get the value from NUnit-console --params 
@@ -32,22 +34,34 @@ namespace Jenkins
                 ChooseDriverInstance(_browserType);
             }
 
-            private void ChooseDriverInstance(BrowerType browserType)
-            {
-                if (browserType == BrowerType.Chrome)
-                    Driver = new ChromeDriver();
-                else if (browserType == BrowerType.Firefox)
+
+
+        private void ChooseDriverInstance(BrowerType browserType)
+        {
+            if (browserType == BrowerType.Chrome) { 
+                Driver = new ChromeDriver();
+            Driver.Navigate().GoToUrl("http://executeautomation.com/demosite/Login.html");
+            Driver.FindElement(By.Name("UserName")).SendKeys("admin");
+            Driver.FindElement(By.Name("Password")).SendKeys("admin");
+            Driver.FindElement(By.XPath("/html/body/form/p[3]/input")).Click(); }
+
+            else if (browserType == BrowerType.Firefox)
                 {
-                    //FirefoxDriverService service = FirefoxDriverService.CreateDefaultService();
-                    //service.FirefoxBinaryPath = @"C:\Program Files (x86)\Mozilla Firefox\firefox.exe";
-                    //service.HideCommandPromptWindow = true;
-                    //service.SuppressInitialDiagnosticInformation = true;
+                   
                     Driver = new FirefoxDriver();
-                }
+                Driver.Navigate().GoToUrl("http://executeautomation.com/demosite/Login.html");
+                Driver.FindElement(By.Name("UserName")).SendKeys("admin2");
+                Driver.FindElement(By.Name("Password")).SendKeys("admin2");
+                Driver.FindElement(By.XPath("/html/body/form/p[3]/input")).Click();
+            }
                 else if (browserType == BrowerType.IE)
                 {
                     Driver = new InternetExplorerDriver();
-                }
+                Driver.Navigate().GoToUrl("http://executeautomation.com/demosite/Login.html");
+                Driver.FindElement(By.Name("UserName")).SendKeys("admin3");
+                Driver.FindElement(By.Name("Password")).SendKeys("admin3");
+                Driver.FindElement(By.XPath("/html/body/form/p[3]/input")).Click();
+            }
             }
         }
     }
